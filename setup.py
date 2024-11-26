@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="CICD test",
+    name="cicd-test",
     version="0.1.0",
     author="Jeahyuk Jeong",
     author_email="jeong_j1@denison.edu",
@@ -12,7 +12,6 @@ setup(
     packages=find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3.9",
-        "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
     python_requires='>=3.9',
