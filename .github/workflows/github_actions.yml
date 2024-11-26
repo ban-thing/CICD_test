@@ -3,9 +3,7 @@
 
 name: CI/CD using github actions & docker
 
-on:
-  push:
-    types: ["main"]
+on: [push]
 
 jobs:
   Ci-CD:
