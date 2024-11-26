@@ -13,7 +13,7 @@ from sklearn.cluster import KMeans
 from sklearn.metrics.pairwise import cosine_similarity
 from sentence_transformers import SentenceTransformer
 
-app = Flask(__name__)
+app = Flask(__name__)  
 
 def adv_search(question_list):
 
