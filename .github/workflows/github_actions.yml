@@ -32,7 +32,10 @@ jobs:
       with:
         java-version: '11'
         distribution: 'temurin'
-    
+
+    - name: docker version check
+      run: |
+        docker --version
     # docker build & push to production
     - name: Docker build & push to prod
       if: contains(github.ref, 'main')
