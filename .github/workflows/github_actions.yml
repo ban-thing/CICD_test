@@ -22,17 +22,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    - name: Set up python 3.9
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.9'
-
-    - name: Set up JDK 11
-      uses: actions/setup-java@v4
-      with:
-        java-version: '11'
-        distribution: 'temurin'
-
     - name: docker version check
       run: |
         docker --version
@@ -59,6 +48,19 @@ jobs:
           sudo docker pull ${{ secrets.DOCKER_USERNAME }}/cicdtest
           sudo docker run -d -p 8082:8082 ${{ secrets.DOCKER_USERNAME }}/cicdtest
           sudo docker image prune -f
+    
+    - name: Set up python 3.9
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+
+    - name: Set up JDK 11
+      uses: actions/setup-java@v4
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+
+    
 
 
   
