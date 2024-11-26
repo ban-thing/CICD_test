@@ -7,7 +7,7 @@ on: [push]
   
 
 jobs:
-  CI-CD:
+  release-build:
 
     runs-on: ubuntu-latest
     permissions:
