@@ -29,10 +29,13 @@ jobs:
         python-version: '3.9'
 
     - name: Set up MySQL
-      run: |
-        sudo apt install mysql-server
-        sudo systemctl status mysql
-    
+    - uses: mirromutth/mysql-action@v1.1
+      with:
+        host port: 3306
+        container port: 3306
+        mysql database: 'testdb'
+        mysql root password: ${{ secrets.DB_PASSWORD }}
+  
     - name: docker version check
       run: |
         docker --version
