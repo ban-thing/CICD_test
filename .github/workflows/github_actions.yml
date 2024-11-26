@@ -3,7 +3,9 @@
 
 name: CI/CD using github actions & docker(Python)
 
-on: [push]
+on:
+  release:
+    types: [published]
 
 jobs:
   CI-CD:
