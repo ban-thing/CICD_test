@@ -34,8 +34,8 @@ jobs:
       packages: write
 
     steps:
-    - name: Check Dockerfile permissions
-      run: ls -l Dockerfile
+    - name: Check dockerfile permissions
+      run: ls -l dockerfile
     # docker build & push to production
     - name: Docker build & push to prod
       if: contains(github.ref, 'main')
