@@ -33,17 +33,21 @@ jobs:
       with:
         java-version: '11'
         distribution: 'temurin'
-    
+    # Build Spring Boot Application
+    - name: Build Spring Boot Application
+      run: |
+        ./mvnw clean install -DskipTests
+  
     - name: Set up python 3.9 
       uses: actions/setup-python@v4
       with:
         python-version: '3.9'
 
-        
-    - name: docker version check
+    # Run Python Application
+    - name: Run Python Application
       run: |
-        docker --version
-        
+        nohup python python/main__.py &
+      
     # docker build & push to production
     - name: Docker build & push to prod
       if: contains(github.ref, 'main')
