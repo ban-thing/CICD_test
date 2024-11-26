@@ -49,7 +49,7 @@ jobs:
           docker run -d -p 8082:8082 ${{ secrets.DOCKER_USERNAME }}/cicdtest
           docker image prune -f
     
-    - name: Set up python 3.9
+    - name: Set up python 3.9 
       uses: actions/setup-python@v4
       with:
         python-version: '3.9'
