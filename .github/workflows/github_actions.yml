@@ -36,7 +36,7 @@ jobs:
       if: contains(github.ref, 'main')
       with:
         host: ${{ secrets.HOST_PROD }} # EC2 퍼블릭 IPv4 DNS
-        username: ubuntu
+        username: root
         key: ${{ secrets.PRIVATE_KEY }} #id_ed25519
         envs: GITHUB_SHA
         script: |
