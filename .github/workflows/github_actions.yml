@@ -40,7 +40,6 @@ jobs:
         key: ${{ secrets.PRIVATE_KEY }} #id_ed25519
         envs: GITHUB_SHA
         script: |  
-          sudo systemctl start docker
           sudo systemctl enable docker
           sudo docker ps
           sudo docker pull ${{ secrets.DOCKER_USERNAME }}/cicdtest
