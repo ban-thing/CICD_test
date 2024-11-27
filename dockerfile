@@ -17,7 +17,7 @@ RUN pip install sentence-transformers
 COPY . .
 
 # Expose the port the app runs on (optional)
-# EXPOSE 7000
+EXPOSE 7000
 
 # Set environment variables (optional)
 # ENV PYTHONUNBUFFERED=1
