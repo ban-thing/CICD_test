@@ -91,3 +91,4 @@ jobs:
           docker info
           sudo docker image prune -f
           docker info
+          docker ps
