@@ -58,7 +58,6 @@ jobs:
     - name: Docker build & push to prod
       if: contains(github.ref, 'main')
       run: |
-        sudo systemctl stop docker.service
         sudo dockerd --storage-opt dm.basesize=20G
         sudo systemctl start docker
         docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
