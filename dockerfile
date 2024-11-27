@@ -20,7 +20,7 @@ COPY . .
 EXPOSE 7000
 
 # Set environment variables (optional)
-# ENV PYTHONUNBUFFERED=1
+ENV PYTHONUNBUFFERED=1
 
 # Run the application
 CMD ["python", "main__.py"]
