@@ -58,8 +58,9 @@ jobs:
     - name: Docker build & push to prod
       if: contains(github.ref, 'main')
       run: |
+        sudo dockerd --storage-opt dm.basesize=20G
         docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-        dockerd --storage-opt dm.basesize=20G
+        sleep 10
         docker build -f ./dockerfile -t ${{ secrets.DOCKER_USERNAME }}/cicdtest .
         docker push ${{ secrets.DOCKER_USERNAME }}/cicdtest
         docker info
