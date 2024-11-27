@@ -84,5 +84,5 @@ jobs:
           sudo systemctl enable docker
           sudo docker ps
           sudo docker pull ${{ secrets.DOCKER_USERNAME }}/cicdtest
-          sudo docker run -d -p 8082:8082 ${{ secrets.DOCKER_USERNAME }}/cicdtest
+          sudo docker run -d -p 7000:7000 ${{ secrets.DOCKER_USERNAME }}/cicdtest
           sudo docker image prune -f
