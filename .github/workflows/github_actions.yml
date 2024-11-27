@@ -61,6 +61,7 @@ jobs:
         docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
         docker build -f ./dockerfile -t ${{ secrets.DOCKER_USERNAME }}/cicdtest .
         docker push ${{ secrets.DOCKER_USERNAME }}/cicdtest
+        docker info
         
   deploy:
     # needs를 통해 build job이 수행 성공시에 작업되도록 설정
@@ -83,6 +84,10 @@ jobs:
           sudo systemctl start docker
           sudo systemctl enable docker
           sudo docker ps
+          docker info
           sudo docker pull ${{ secrets.DOCKER_USERNAME }}/cicdtest
+          docker info
           sudo docker run -d -p 7000:7000 ${{ secrets.DOCKER_USERNAME }}/cicdtest
+          docker info
           sudo docker image prune -f
+          docker info
