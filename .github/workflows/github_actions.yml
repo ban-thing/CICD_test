@@ -75,7 +75,7 @@ jobs:
       with:
         host: ${{ secrets.HOST_PROD }} # EC2 퍼블릭 IPv4 DNS
         username: root
-        key: ${{ secrets.PRIVATE_KEY }} #id_ed25519
+        password: N9?UP$5imM4Dr #id_ed25519
         port: 22
         envs: GITHUB_SHA
         script: |
