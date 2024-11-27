@@ -14,7 +14,7 @@ RUN pip install scikit-learn
 RUN pip install sentence-transformers
 
 # Copy the application code to the container
-COPY . .
+COPY python/ /python/
 
 # Expose the port the app runs on (optional)
 EXPOSE 7000
