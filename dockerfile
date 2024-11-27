@@ -12,6 +12,7 @@ RUN pip install torch
 RUN pip install flask
 RUN pip install scikit-learn
 RUN pip install sentence-transformers
+RUN ls
 
 # Copy the application code to the container
 COPY . .
@@ -23,4 +24,4 @@ EXPOSE 7000
 ENV PYTHONUNBUFFERED=1
 
 # Run the application
-CMD ["python", "~/python/main__.py"]
+CMD ["python", "~/main__.py"]
