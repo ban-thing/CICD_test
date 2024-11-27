@@ -94,5 +94,5 @@ def advanced_search():
     #return params
 
 if __name__ == '__main__':
-    app.run(port=7000, debug = True)
+    app.run(port=7000, debug = False) # Flask’s debug=True option causes the server to restart during file changes, which can terminate a container unexpectedly.
 
