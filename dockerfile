@@ -2,7 +2,7 @@
 FROM python:3.9.11-slim
 
 # Set the working directory inside the container
-WORKDIR /python
+# WORKDIR /python
 
 # Install Python dependencies
 RUN pip install --upgrade pip
