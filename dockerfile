@@ -15,7 +15,6 @@ RUN pip install torch
 RUN pip install flask
 RUN pip install scikit-learn
 RUN pip install sentence-transformers
-RUN ls
 
 # Expose the port the app runs on (optional)
 EXPOSE 7000
