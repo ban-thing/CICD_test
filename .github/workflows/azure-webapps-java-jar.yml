@@ -76,9 +76,13 @@ jobs:
       with:
         host: ${{ secrets.HOST_PROD }} # EC2 퍼블릭 IPv4 DNS
         username: root
-        password: N9?UP$5imM4Dr #id_ed25519
+        password: N9?UP$5imM4Dr #id_ed25519  # secret
         port: 22
         envs: GITHUB_SHA
+        environment: |
+          SPRING_DATASOURCE_URL: jdbc:mysql://127.0.0.1:3306/banthing
+          SPRING_DATASOURCE_USERNAME: ubunto #secret
+          SPRING_DATASOURCE_PASSWORD: Jl56060516! #secret
         script: |
           sudo apt-get update
           sudo apt-get install -y docker.io
