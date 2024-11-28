@@ -5,12 +5,7 @@ FROM gradle:7.6.4-jdk17 AS build
 WORKDIR /app
 
 # Copy Gradle wrapper files and source code to the container
-COPY build.gradle settings.gradle /app/
-COPY gradle /app/gradle/
-COPY src /app/src/
-
-# Build the application
-RUN gradle build -DskipTests --no-daemon
+COPY . .
 
 # Use a minimal JDK runtime image for the final container
 FROM openjdk:17-jdk-slim
