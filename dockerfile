@@ -24,4 +24,4 @@ EXPOSE 7000
 ENV PYTHONUNBUFFERED=1
 
 # Run the application
-CMD ["python3", "/python/main__.py"]
+CMD ["python3", "main__.py"]
