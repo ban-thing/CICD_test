@@ -52,8 +52,8 @@ jobs:
       - name: Set up and run MySQL
         run: |
           sudo touch /etc/mysql/mysql.conf.d/mysqld.cnf
-          sudo sed -i 's/^bind-address =.*/bind-address = 0.0.0.0' /etc/mysql/mysql.conf.d/mysqld.cnf
-          sudo sed -i 's/^mysqlx-bind-address =.*/bind-address = 0.0.0.0' /etc/mysql/mysql.conf.d/mysqld.cnf
+          sudo sed -i 's/^bind-address\s*=.*/bind-address = 0.0.0.0' /etc/mysql/mysql.conf.d/mysqld.cnf
+          sudo sed -i 's/^mysqlx-bind-address\s*=.*/bind-address = 0.0.0.0' /etc/mysql/mysql.conf.d/mysqld.cnf
           sudo systemctl start mysql
           
       - name: Install Maven
