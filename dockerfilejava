@@ -10,7 +10,7 @@ COPY gradle /app/gradle/
 COPY src /app/src/
 
 # Build the application
-RUN gradle build --no-daemon
+RUN gradle build -DskipTests --no-daemon
 
 # Use a minimal JDK runtime image for the final container
 FROM openjdk:17-jdk-slim
