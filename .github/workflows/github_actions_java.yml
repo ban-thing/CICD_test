@@ -59,7 +59,7 @@ jobs:
       - name: Docker build & push to prod
         if: contains(github.ref, 'main')
         run: |
-          systemctl status mysql
+          systemctl start mysql
           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
           docker build -f ./dockerfilejava -t ${{ secrets.DOCKER_USERNAME }}/cicdtest .
           mkdir -p ./src/main/resources
