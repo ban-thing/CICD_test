@@ -54,7 +54,14 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y maven
-              
+
+      - name: make application.properties
+        run: |
+          mkdir -p ./src/main/resources
+          cd ./src/main/resources
+          touch ./application.properties
+          echo "${{ secrets.APPLICATION }}" > ./application.properties
+          
         # docker build & push to production
       - name: Docker build & push to prod
         if: contains(github.ref, 'main')
