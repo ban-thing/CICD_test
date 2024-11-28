@@ -19,7 +19,7 @@
 
 name: Build and deploy JAR app
 
-on: [pull]
+on: [push]
   
 permissions:
   contents: read
