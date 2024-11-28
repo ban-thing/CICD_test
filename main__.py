@@ -20,7 +20,7 @@ def adv_search(question_list):
     # Check if CUDA is available and set the device accordingly
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
-    trait_data = pd.read_csv(r"advanced_search_test_file.csv")
+    trait_data = pd.read_csv(r"advanced_search_test_file.xlsx")
     trait_data.head()
 
     # 모든 텍스트 소문자로 전환하기
