@@ -3,7 +3,7 @@
 
 name: CI/CD using github actions & docker
 
-on: [push]
+on: [pull]
 
 jobs:
   build:
