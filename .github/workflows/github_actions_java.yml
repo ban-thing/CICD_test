@@ -45,18 +45,6 @@ jobs:
           mysql password: 'Jl56060516!'
           
       - uses: actions/checkout@v4
-      - name: Set up JDK 17
-        uses: actions/setup-java@v4
-        with:
-          java-version: '17'
-          distribution: 'temurin'
-          
-      - name: Install Maven
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y maven
-          
-        # docker build & push to production
       - name: Docker build & push to prod
         if: contains(github.ref, 'main')
         run: |
@@ -64,14 +52,7 @@ jobs:
           sudo systemctl start mysql
           sudo systemctl status mysql
           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-          docker build -f ./dockerfilejava -t ${{ secrets.DOCKER_USERNAME }}/cicdtest .
-          mkdir -p ./src/main/resources
-          cd ./src/main/resources
-          touch ./application.properties
-          echo "${{ secrets.APPLICATION }}" > ./application.properties
-          sudo ls
           docker push ${{ secrets.DOCKER_USERNAME }}/cicdtest
-          docker info
           
   deploy:
     # needs를 통해 build job이 수행 성공시에 작업되도록 설정
@@ -98,7 +79,7 @@ jobs:
           docker info
           sudo docker pull ${{ secrets.DOCKER_USERNAME }}/cicdtest
           docker info
-          sudo docker run -d -p 0.0.0.0:8080:8080 ${{ secrets.DOCKER_USERNAME }}/cicdtest
+          sudo docker run -d -p 0.0.0.0:3306:3306 ${{ secrets.DOCKER_USERNAME }}/cicdtest
           sudo docker image prune -f
           sudo docker ps
           sudo ls
