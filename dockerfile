@@ -15,7 +15,7 @@ RUN pip install sentence-transformers
 RUN ls
 
 # Copy the application code to the container
-COPY . .
+COPY . /app
 
 # Expose the port the app runs on (optional)
 EXPOSE 7000
