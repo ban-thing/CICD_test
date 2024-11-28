@@ -24,11 +24,13 @@ on: [push]
 permissions:
   contents: read
   packages: write
-  
+
 jobs:
+
+    
   build:
     runs-on: ubuntu-latest
-
+      
     steps:
       - uses: mirromutth/mysql-action@v1.1
         with:
@@ -53,11 +55,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y maven
-
-      - name: Set up application properties
-        run: |
           
-
         # docker build & push to production
       - name: Docker build & push to prod
         if: contains(github.ref, 'main')
