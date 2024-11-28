@@ -1,6 +1,9 @@
 # Use an official Python runtime as a base image
 FROM python:3.9.11-slim
 
+# Copy the application code to the container
+COPY . /app
+
 # Set the working directory inside the container
 WORKDIR /app
 
@@ -14,9 +17,6 @@ RUN pip install scikit-learn
 RUN pip install sentence-transformers
 RUN ls
 
-# Copy the application code to the container
-COPY . /app
-
 # Expose the port the app runs on (optional)
 EXPOSE 7000
 
@@ -24,4 +24,4 @@ EXPOSE 7000
 ENV PYTHONUNBUFFERED=1
 
 # Run the application
-CMD ["python3", "main__.py"]
+CMD ["python3", "/app/main__.py"]
