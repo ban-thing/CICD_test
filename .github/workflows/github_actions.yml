@@ -91,4 +91,3 @@ jobs:
           sudo docker image prune -f
           sleep 60
           sudo docker ps
-          ls /python
