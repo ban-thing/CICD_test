@@ -42,13 +42,19 @@ jobs:
           mysql user: 'ubunto' # Required if "mysql root password" is empty, default is empty. The superuser for the specified database. Can use secrets, too
           mysql password: Jl56060516! # Required if "mysql user" exists. The password for the "mysql user"
 
-      
       - uses: actions/checkout@v4
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'temurin'
+
+      - name: Set up and run MySQL
+        run: |
+          sudo touch /etc/mysql/mysql.conf.d/mysqld.cnf
+          sudo sed -i 's/^bind-address =.*/bind-address = 0.0.0.0' /etc/mysql/mysql.conf.d/mysqld.cnf
+          sudo sed -i 's/^mysqlx-bind-address =.*/bind-address = 0.0.0.0' /etc/mysql/mysql.conf.d/mysqld.cnf
+          sudo systemctl start mysql
           
       - name: Install Maven
         run: |
@@ -59,7 +65,7 @@ jobs:
       - name: Docker build & push to prod
         if: contains(github.ref, 'main')
         run: |
-          sudo systemctl start mysql
+          
           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
           docker build -f ./dockerfilejava -t ${{ secrets.DOCKER_USERNAME }}/cicdtest .
           mkdir -p ./src/main/resources
