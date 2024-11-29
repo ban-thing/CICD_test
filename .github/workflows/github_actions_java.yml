@@ -40,9 +40,6 @@ jobs:
       - name: Docker build & push to prod
         if: contains(github.ref, 'main')
         run: |
-          sudo systemctl enable mysql
-          sudo systemctl start mysql
-          sudo systemctl status mysql
           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
           docker build -f ./dockerfilejava -t ${{ secrets.DOCKER_USERNAME }}/cicdtest .
           docker push ${{ secrets.DOCKER_USERNAME }}/cicdtest
@@ -53,6 +50,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+  
     ## deploy to production
     - name: Deploy to prod
       uses: appleboy/ssh-action@master
@@ -64,6 +62,9 @@ jobs:
         envs: |
           GITHUB_SHA
         script: |
+          sudo systemctl enable mysql
+          sudo systemctl start mysql
+          sudo systemctl status mysql
           sudo apt-get update
           sudo apt-get install -y docker.io
           sudo systemctl start docker
