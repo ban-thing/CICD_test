@@ -1,0 +1,80 @@
+@font-face {
+    font-family: "Pretendard";
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
+    src:
+        url("https://cdn.jsdelivr.net/gh/fonts-archive/Pretendard/Pretendard-ExtraBold.woff2")
+            format("woff2"),
+        url("https://cdn.jsdelivr.net/gh/fonts-archive/Pretendard/Pretendard-ExtraBold.woff")
+            format("woff"),
+        url("https://cdn.jsdelivr.net/gh/fonts-archive/Pretendard/Pretendard-ExtraBold.otf")
+            format("opentype");
+}
+
+@font-face {
+    font-family: "Pretendard";
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+    src:
+        url("https://cdn.jsdelivr.net/gh/fonts-archive/Pretendard/Pretendard-Bold.woff2")
+            format("woff2"),
+        url("https://cdn.jsdelivr.net/gh/fonts-archive/Pretendard/Pretendard-Bold.woff")
+            format("woff"),
+        url("https://cdn.jsdelivr.net/gh/fonts-archive/Pretendard/Pretendard-Bold.otf")
+            format("opentype");
+}
+
+@font-face {
+    font-family: "Pretendard";
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+    src:
+        url("https://cdn.jsdelivr.net/gh/fonts-archive/Pretendard/Pretendard-Medium.woff2")
+            format("woff2"),
+        url("https://cdn.jsdelivr.net/gh/fonts-archive/Pretendard/Pretendard-Medium.woff")
+            format("woff"),
+        url("https://cdn.jsdelivr.net/gh/fonts-archive/Pretendard/Pretendard-Medium.otf")
+            format("opentype");
+}
+
+:root {
+    --color-main-1: #6290ec;
+    --color-main-2: #9dbdff;
+    --color-main-3: #c6d8ff;
+    --color-sub-1: #ffbebe;
+    --color-sub-2: #fff4f4;
+    --color-black-1: #111111;
+    --color-black-2: #212121;
+    --color-black-3: #343434;
+    --color-black-4: #505050;
+    --color-black-5: #6c6c6c;
+    --color-black-6: #c0c0c0;
+    --color-black-7: #d7d7d7;
+    --color-black-8: #f7f7f7;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    color: var(--color-black-1);
+    font-family: "Pretendard";
+    font-weight: 500;
+    border: none;
+    word-break: keep-all;
+}
+
+a {
+    text-decoration: none;
+}
+
+ul {
+    list-style: none;
+}
+
+button {
+    background: none;
+    cursor: pointer;
+}
