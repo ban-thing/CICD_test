@@ -28,13 +28,13 @@ jobs:
             sudo systemctl enable mysql
             sudo systemctl start mysql
             sudo systemctl status mysql
-            ls
-            ls
-            ls
+            cd CICD_test
             mkdir -p ./src/main/resources
             cd ./src/main/resources
             touch ./application.properties
             echo "${{ secrets.APPLICATION }}" > ./application.properties
+            cd ..
+            ls
             cd ..
             ls
             cd ..
