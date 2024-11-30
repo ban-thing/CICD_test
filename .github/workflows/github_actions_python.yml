@@ -21,28 +21,6 @@ jobs:
         python-version: '3.9'
 
     - name: Create virtual environment
-      run: |
-        python3 -m venv venv
-        source venv/bin/activate
- 
-    - name: Install Python dependencies
-      run: |
-        sudo apt install python3-pip -y
-        pip install pandas
-        pip install numpy
-        pip install flask
-        pip install torch --no-cache-dir
-        pip install scikit-learn --no-cache-dir
-        pip install sentence-transformers --no-cache-dir
-        
-  deploy:
-    # needs를 통해 build job이 수행 성공시에 작업되도록 설정
-    needs: build
-    runs-on: ubuntu-latest
-
-    steps:
-    ## deploy to production
-    - name: Deploy to prod
       uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.HOST_PROD }} # EC2 퍼블릭 IPv4 DNS
@@ -50,5 +28,15 @@ jobs:
         password: ${{ secrets.HOST_PWD }} #id_ed25519
         port: 22
         envs: GITHUB_SHA
+
         script: |
-          python3 ./CICD_teset/main__.py
+          python3 -m venv venv
+          source venv/bin/activate   
+          sudo apt install python3-pip -y
+          pip install pandas
+          pip install numpy
+          pip install flask
+          pip install torch --no-cache-dir
+          pip install scikit-learn --no-cache-dir
+          pip install sentence-transformers --no-cache-dir
+          python3 main__.py
