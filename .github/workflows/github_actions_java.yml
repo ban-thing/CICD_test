@@ -13,27 +13,27 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-  
-    ## deploy to production
-    - name: Deploy to prod
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.HOST_PROD }} # EC2 퍼블릭 IPv4 DNS
-        username: root
-        password: ${{secrets.HOST_PWD}} #id_ed25519  # secret
-        port: 22
-        envs: |
-          GITHUB_SHA
-        script: |
-          sudo systemctl enable mysql
-          sudo systemctl start mysql
-          sudo systemctl status mysql
-          mkdir -p ./src/main/resources
-          cd ./src/main/resources
-          touch ./application.properties
-          echo "${{ secrets.APPLICATION }}" > ./application.properties
-          ls
-          chmod +x gradlew
-          ./gradlew clean build -x test
-          rm ./application.properties
-          java -jar build/libs/ban-thing-0.0.1-SNAPSHOT.jar
+      - uses: actions/checkout@v4
+      ## deploy to production
+      - name: Deploy to prod
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST_PROD }} # EC2 퍼블릭 IPv4 DNS
+          username: root
+          password: ${{secrets.HOST_PWD}} #id_ed25519  # secret
+          port: 22
+          envs: |
+            GITHUB_SHA
+          script: |
+            sudo systemctl enable mysql
+            sudo systemctl start mysql
+            sudo systemctl status mysql
+            mkdir -p ./src/main/resources
+            cd ./src/main/resources
+            touch ./application.properties
+            echo "${{ secrets.APPLICATION }}" > ./application.properties
+            ls
+            chmod +x gradlew
+            ./gradlew clean build -x test
+            rm ./application.properties
+            java -jar build/libs/ban-thing-0.0.1-SNAPSHOT.jar
