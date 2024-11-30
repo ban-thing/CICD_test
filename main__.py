@@ -94,5 +94,6 @@ def advanced_search():
     #return params
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=7000, debug = False) # Flask’s debug=True option causes the server to restart during file changes, which can terminate a container unexpectedly.
+    from waitress import serve
+    serve(app, host='0.0.0.0', port=7000, debug = False) # Flask’s debug=True option causes the server to restart during file changes, which can terminate a container unexpectedly.
 
