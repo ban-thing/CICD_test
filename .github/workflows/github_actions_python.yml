@@ -1,9 +1,9 @@
 # This workflow will build a package using Maven and then publish it to GitHub packages when a release is created
 # For more information see: https://github.com/actions/setup-java/blob/main/docs/advanced-usage.md#apache-maven-with-a-settings-path
 
-name: CI/CD using github actions & docker
+name: Run FLASK
 
-on: [pull_request]
+on: [push]
 
 jobs:
   build:
@@ -20,14 +20,15 @@ jobs:
       with:
         python-version: '3.9'
  
-    # docker build & push to production
-    - name: Docker build & push to prod
-      if: contains(github.ref, 'main')
+    - name: Set up python dependencies
       run: |
-        docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-        docker build -f ./dockerfile -t ${{ secrets.DOCKER_USERNAME }}/cicdtest .
-        docker push ${{ secrets.DOCKER_USERNAME }}/cicdtest
-        docker info
+        sudo apt install python3-pip -y
+        pip install pandas
+        pip install numpy
+        pip install flask
+        pip install torch --no-cache-dir
+        pip install scikit-learn --no-cache-dir
+        pip install sentence-transformers --no-cache-dir
         
   deploy:
     # needs를 통해 build job이 수행 성공시에 작업되도록 설정
@@ -45,14 +46,4 @@ jobs:
         port: 22
         envs: GITHUB_SHA
         script: |
-          sudo apt-get update
-          sudo apt-get install -y docker.io
-          sudo systemctl start docker
-          sudo systemctl enable docker
-          sudo docker ps
-          docker info
-          sudo docker pull ${{ secrets.DOCKER_USERNAME }}/cicdtest
-          docker info
-          sudo docker run -d -p 0.0.0.0:7000:7000 ${{ secrets.DOCKER_USERNAME }}/cicdtest
-          sudo docker image prune -f
-          sudo docker ps
+          python3 main__.py
