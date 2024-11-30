@@ -34,9 +34,9 @@ jobs:
             echo "${{ secrets.APPLICATION }}" > ./application.properties
             cd ..
             ls
-            cd..
+            cd ..
             ls
-            cd..
+            cd ..
             ls
             chmod +x gradlew
             ./gradlew clean build -x test
