@@ -28,6 +28,9 @@ jobs:
             sudo systemctl enable mysql
             sudo systemctl start mysql
             sudo systemctl status mysql
+            ls
+            ls
+            ls
             mkdir -p ./src/main/resources
             cd ./src/main/resources
             touch ./application.properties
