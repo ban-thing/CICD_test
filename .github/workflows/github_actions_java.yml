@@ -34,11 +34,8 @@ jobs:
             touch ./application.properties
             echo "${{ secrets.APPLICATION }}" > ./application.properties
             cd ..
-            ls
             cd ..
-            ls
             cd ..
-            ls
             chmod +x gradlew
             ./gradlew clean build -x test
             rm ./application.properties
