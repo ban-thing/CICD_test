@@ -1,6 +1,6 @@
 name: Build and deploy JAR app
 
-on: [pull_request]
+on: [push]
   
 permissions:
   contents: read
