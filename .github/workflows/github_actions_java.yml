@@ -32,6 +32,6 @@ jobs:
           cd ./src/main/resources
           touch ./application.properties
           echo "${{ secrets.APPLICATION }}" > ./application.properties
-          ./gradlew clean build -x test
+          gradlew clean build -x test
           rm ./application.properties
           java -jar build/libs/ban-thing-0.0.1-SNAPSHOT.jar
