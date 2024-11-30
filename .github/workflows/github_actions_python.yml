@@ -39,4 +39,5 @@ jobs:
           pip install torch --no-cache-dir
           pip install scikit-learn --no-cache-dir
           pip install sentence-transformers --no-cache-dir
+          ls
           python3 main__.py
