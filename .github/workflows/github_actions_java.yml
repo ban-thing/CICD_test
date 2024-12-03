@@ -39,7 +39,7 @@ jobs:
 
   deploy:
     needs: build
-    runs-on: ubunto-latest
+    runs-on: ubunto-24.04
 
     steps:
     - name: Deploy to prod
