@@ -1,23 +1,10 @@
 # Use the official Gradle image as the builder
 FROM gradle:7.6.4-jdk17 AS build
 
-# Copy the application code to the container
-COPY . /app
-
 # Set the working directory inside the container
 WORKDIR /app
 
-CMD ["chmod", "+x", "gradlew"]
-CMD ["./gradlew", "clean", "-x", "test"]
-
-# 빌더 이미지에서 jar 파일만 복사'
-COPY build/libs/*.jar ./app.jar
-# COPY --from=builder /build/build/libs/bbs-0.0.1-SNAPSHOT.jar .
-
-EXPOSE 8080
-
-ENTRYPOINT [                                                \
-   "java",                                                 \
-   "-jar",                                                 \
-   "app.jar"             \
-]
+COPY ./ ./
+RUN chmod +x gradlew
+RUN ./gradlew clean build -x test
+CMD java -jar build/libs/*.jar
