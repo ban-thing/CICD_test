@@ -1,28 +1,22 @@
 # Use the official Gradle image as the builder
 FROM gradle:7.6.4-jdk17 AS build
 
-WORKDIR /build
+# Copy the application code to the container
+COPY . /app
 
-# 빌더 이미지에서 애플리케이션 빌드
-COPY . /build
-RUN gradle build -x test
-
-# APP
-FROM openjdk:11.0-slim
+# Set the working directory inside the container
 WORKDIR /app
 
+RUN gradle build -x test
+
 # 빌더 이미지에서 jar 파일만 복사
-COPY --from=builder /build/build/libs/*-SNAPSHOT.jar ./app.jar
+COPY --from=builder /app/build/libs/*-SNAPSHOT.jar ./app.jar
 # COPY --from=builder /build/build/libs/bbs-0.0.1-SNAPSHOT.jar .
 
 EXPOSE 8080
 
-# root 대신 nobody 권한으로 실행
-USER nobody
 ENTRYPOINT [                                                \
    "java",                                                 \
    "-jar",                                                 \
-   "-Djava.security.egd=file:/dev/./urandom",              \
-   "-Dsun.net.inetaddr.ttl=0",                             \
    "app.jar"             \
 ]
