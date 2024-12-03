@@ -1,6 +1,6 @@
 name: Build and deploy JAR app
 
-on: [pull_request]
+on: [push]
   
 permissions:
   contents: read
@@ -46,9 +46,7 @@ jobs:
           port: 22
           envs: GITHUB_SHA
           script: |
-            sudo systemctl enable mysql
             sudo systemctl start mysql
-	    sudo systemctl status mysql
-            sudo docker pull ${{ secrets.DOCKER_USERNAME }}/cicdtest
-            sudo docker run -d -p 8082:8082 ${{ secrets.DOCKER_USERNAME }}/cicdtest
+	    sudo docker pull ${{ secrets.DOCKER_USERNAME }}/cicdtest   
+	    sudo docker run -d -p 8080:8080 ${{ secrets.DOCKER_USERNAME }}/cicdtest
 	    sudo docker image prune -f
