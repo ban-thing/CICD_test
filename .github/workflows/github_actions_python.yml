@@ -35,6 +35,13 @@ jobs:
         cd ./src/main/resources
         touch ./application.properties
         echo "${{ secrets.Application }}" > ./application.properties
+
+      # gradle을 통해 소스를 빌드.
+      
+    - name: Build with Gradle
+      run: |
+        chmod +x ./gradlew
+        ./gradlew clean build -x test
     
     - name: Spring-Docker build & push to prod
       if: contains(github.ref, 'main')
