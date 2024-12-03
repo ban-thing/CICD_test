@@ -9,6 +9,8 @@ WORKDIR /app
 
 RUN gradle build -x test
 RUN ls
+RUN cd
+RUN ls
 
 # 빌더 이미지에서 jar 파일만 복사'
 COPY /app/build/libs/*.jar ./app.jar
