@@ -8,8 +8,9 @@ COPY . /app
 WORKDIR /app
 
 RUN gradle build -x test
+RUN ls
 
-# 빌더 이미지에서 jar 파일만 복사
+# 빌더 이미지에서 jar 파일만 복사'
 COPY /app/build/libs/*-SNAPSHOT.jar ./app.jar
 # COPY --from=builder /build/build/libs/bbs-0.0.1-SNAPSHOT.jar .
 
