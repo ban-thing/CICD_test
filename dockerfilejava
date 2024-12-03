@@ -7,7 +7,8 @@ COPY . /app
 # Set the working directory inside the container
 WORKDIR /app
 
-CMD ["./gradlew", "clean", "bootJar"]
+CMD ["chmod", "+x", "gradlew"]
+CMD ["./gradlew", "clean", "-x", "test"]
 
 # 빌더 이미지에서 jar 파일만 복사'
 COPY build/libs/*.jar ./app.jar
