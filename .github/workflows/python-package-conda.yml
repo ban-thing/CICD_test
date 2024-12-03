@@ -1,0 +1,44 @@
+name: Python Package using Conda
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python 3.9
+      uses: actions/setup-python@v3
+      with:
+        python-version: '3.9'
+    - name: Docker build & push to prod
+      if: contains(github.ref, 'main')
+      run: |
+        docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PWD }}
+        docker build -f ./dockerfile -t ${{ secrets.DOCKER_USERNAME }}/cicdtest .
+        docker push ${{ secrets.DOCKER_USERNAME }}/cicdtest
+        
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+    - name: Deploy to prod
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST_PROD }}
+        username: root
+        password: ${{ secrets.HOST_PWD }}
+        envs:
+          GITHUB_SHA
+        script: |
+          sudo docker pull ${{ secrets.DOCKER_USERNAME }}/cicdtest
+          sudo docker run -d -p 7000:7000 ${{ secrets.DOCKER_USERNAME }}/cicdtest
+          sudo docker image prune -f
