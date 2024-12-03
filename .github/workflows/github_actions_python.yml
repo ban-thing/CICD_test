@@ -28,7 +28,13 @@ jobs:
         docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PWD }}
         docker build -f ./dockerfile -t ${{ secrets.DOCKER_USERNAME }}/cicdtest .
         docker push ${{ secrets.DOCKER_USERNAME }}/cicdtest
-        
+
+    - name: Make application.properties
+      run: |
+        cd ./src/main/resources
+        touch ./application.properties
+        echo "${{ secrets.Application }}" > ./application.properties
+    
     - name: Spring-Docker build & push to prod
       if: contains(github.ref, 'main')
       run: |
