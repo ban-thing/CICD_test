@@ -4,7 +4,7 @@ on: [push]
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     permissions:
       contents: read
       packages: write
@@ -15,16 +15,29 @@ jobs:
       uses: actions/setup-python@v3
       with:
         python-version: '3.9'
-    - name: Docker build & push to prod
+
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        
+    - name: Python-Docker build & push to prod
       if: contains(github.ref, 'main')
       run: |
         docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PWD }}
         docker build -f ./dockerfile -t ${{ secrets.DOCKER_USERNAME }}/cicdtest .
         docker push ${{ secrets.DOCKER_USERNAME }}/cicdtest
         
+    - name: Spring-Docker build & push to prod
+      if: contains(github.ref, 'main')
+      run: |
+        docker build -f ./dockerfilejava -t ${{ secrets.DOCKER_USERNAME }}/cicdtestjava .
+        docker push ${{ secrets.DOCKER_USERNAME }}/cicdtestjava
+        
   deploy:
     needs: build
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     permissions:
       contents: read
       packages: write
@@ -41,4 +54,6 @@ jobs:
         script: |
           sudo docker pull ${{ secrets.DOCKER_USERNAME }}/cicdtest
           sudo docker run -d -p 7000:7000 ${{ secrets.DOCKER_USERNAME }}/cicdtest
+          sudo docker pull ${{ secrets.DOCKER_USERNAME }}/cicdtestjava
+          sudo docker run -d -p 8080:8080 ${{ secrets.DOCKER_USERNAME }}/cicdtestjava
           sudo docker image prune -f
