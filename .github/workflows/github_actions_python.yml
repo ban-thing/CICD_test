@@ -20,6 +20,13 @@ jobs:
       with:
         python-version: '3.9'
 
+    - name: Docker build & push to prod
+      if: contains(github.ref, 'main')
+      run: |
+        docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PWD }}
+	docker build -f ./dockerfile -t ${{ secrets.DOCKER_USERNAME }}/cicdtest
+	docker push ${{ secrets.DOCKER_USERNAME }}/cicdtest
+
     - name: Create virtual environment
       uses: appleboy/ssh-action@master
       with:
@@ -28,17 +35,7 @@ jobs:
         password: ${{ secrets.HOST_PWD }} #id_ed25519
         port: 22
         envs: GITHUB_SHA
-
         script: |
-          python3 -m venv venv
-          source venv/bin/activate   
-          sudo apt install python3-pip -y
-          pip install pandas
-          pip install numpy
-          pip install flask
-          pip install torch --no-cache-dir
-          pip install scikit-learn --no-cache-dir
-          pip install sentence-transformers --no-cache-dir
-          cd CICD_test
-          cd python
-          python3 main__.py
+          sudo docker pull ${{ secrets.DOCKER_USERNAME }}/cicdtest
+	  sudo docker run -d -p 7000:7000 ${{ secrets.DOCKER_USERNAME }}/cicdtest
+	  sudo docker image prune -f
